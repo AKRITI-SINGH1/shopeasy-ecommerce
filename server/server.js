@@ -1,8 +1,9 @@
-const express = require('express')
-const mongoose = require('mongoose');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
-
+const express = require("express");
+const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const authRoutes = require("./routes/auth/auth-routes");
+const registerUser = require("./controllers/auth-controller");
 
 //create a database connection -> you can also 
 // create a separate file for this and then import / use that file here 
@@ -10,7 +11,7 @@ const cors = require('cors');
 
 mongoose
 .connect(
-'mongodb+srv://akritijune09:akritisingh2025@cluster0.176gi.mongodb.net/'
+`mongodb+srv://akritijune09:akritimern@cluster0.176gi.mongodb.net/`
 )
 .then(() => console.log('MongoDB connected'))
 .catch((error)=> console.log(error));
@@ -21,20 +22,23 @@ const PORT = process.env.port || 3000;
 
 app.use(
     cors({
-        origin: 'http://localhost:5173/',
-        methods: ['GET', 'POST', 'DELETE', 'PUT'],
+        origin: "http://localhost:5173",
+        methods: ["GET", "POST" , "DELETE" , "PUT"],
         allowedHeaders : [
-            'Content-Type',
-            'Authorization',
-            'Çache-Control',
-            'Expires',
-            'Pragma'
+            "Content-Type",
+            "Authorization",
+            "Cache-Control",
+            "Expires",
+            "Pragma"
         ],
-        credentials: true
+        credentials: true,
     })
 );
 
 app.use(cookieParser());    
 app.use(express.json());
+app.use("/api/auth", authRoutes);
+
+
 
 app.listen(PORT, () => console.log(`Server is now running on port ${PORT}`));
