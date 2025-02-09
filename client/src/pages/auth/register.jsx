@@ -1,10 +1,12 @@
 import CommonForm from "@/components/common/form";
+import { useToast } from "@/hooks/use-toast";
 import { registerUser } from "@/store/auth-slice";
 import { registerFormControls } from "@/config";
 import { Link } from "react-router-dom";
 import { useState } from "react"; 
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 
 const initialState = {
   username: "",
@@ -17,16 +19,21 @@ function AuthRegister() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {toast} = useToast();
 
     function onSubmit(event) {
         event.preventDefault();
         dispatch(registerUser(formData)).then ((data) => {
-            if (data?.payload?.success) navigate("/auth/login")
-            console.log(data);
+            if (data?.payload?.success) {
+                toast({
+                    title: data?.payload?.message,
+                });
+                navigate("/auth/login");
+            };      
         });
     }
 
-    console.log( formData);
+    console.log(formData);
 
 
     return (
@@ -37,8 +44,9 @@ function AuthRegister() {
                 </h1>
                 <p className="mt-2">
                     Already have an account!
-                    <Link to="/auth/login"
-                        className="font-medium ml-2 text-primary hover:underline">
+                    <Link
+                        className="font-medium ml-2 text-primary hover:underline"
+                        to ="/auth/login">
                         Login
                     </Link>
                 </p>
@@ -48,7 +56,7 @@ function AuthRegister() {
                 ButtonText={"Sign Up"} 
                 formData={formData}
                 setFormData={setFormData}
-                OnSubmit={onSubmit}
+                onSubmit={onSubmit}
             />
         </div>
     );
