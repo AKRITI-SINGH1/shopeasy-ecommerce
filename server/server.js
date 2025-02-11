@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const authRoutes = require("./routes/auth/auth-routes");
-const registerUser = require("./controllers/auth-controller");
+const registerUser = require("./controllers/auth/auth-controller");
 
 //create a database connection -> you can also 
 // create a separate file for this and then import / use that file here 
@@ -11,14 +11,15 @@ const registerUser = require("./controllers/auth-controller");
 
 mongoose
 .connect(
-`mongodb+srv://akritijune09:akritimern@cluster0.176gi.mongodb.net/`
+"mongodb+srv://akritijune09:akritimern@cluster0.176gi.mongodb.net/"
 )
-.then(() => console.log('MongoDB connected'))
-.catch((error)=> console.log(error));
+
+.then(() => console.log("MongoDB connected"))
+.catch((error) => console.log(error));
 
 
 const app = express();
-const PORT = process.env.port || 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(
     cors({

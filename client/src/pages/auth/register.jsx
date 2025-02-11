@@ -15,7 +15,7 @@ const initialState = {
 };
 
 function AuthRegister() {
-    const [formData, setFormData] = useState(initialState);
+    const [formData , setFormData] = useState(initialState);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -29,9 +29,14 @@ function AuthRegister() {
                     title: data?.payload?.message,
                 });
                 navigate("/auth/login");
-            };      
+            } else {
+                toast({
+                    title: data?.payload?.message,
+                    variant : "destructive",
+                });
+            }
         });
-    }
+    };
 
     console.log(formData);
 
