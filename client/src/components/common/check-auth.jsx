@@ -5,6 +5,8 @@ function CheckAuth({isAuthenticated, user, children}) {
 
     const location = useLocation();
 
+    console.log(location.pathname, isAuthenticated);
+
     if (
         !isAuthenticated &&
         !(
@@ -25,7 +27,11 @@ function CheckAuth({isAuthenticated, user, children}) {
             }
         }
         
-        if(isAuthenticated && user?.role !== "admin" && location.pathname.includes("admin")) {
+        if(
+            isAuthenticated &&
+             user?.role !== "admin" &&
+             location.pathname.includes("admin")
+            ) {
             return <Navigate to = "/unauth-page" />;
         }
 

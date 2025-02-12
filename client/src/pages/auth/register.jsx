@@ -19,7 +19,7 @@ function AuthRegister() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {toast} = useToast();
+    const { toast } = useToast();
 
     function onSubmit(event) {
         event.preventDefault();

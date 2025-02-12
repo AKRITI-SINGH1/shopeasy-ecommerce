@@ -3,16 +3,16 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const authRoutes = require("./routes/auth/auth-routes");
-const registerUser = require("./controllers/auth/auth-controller");
+
 
 //create a database connection -> you can also 
 // create a separate file for this and then import / use that file here 
 
 
 mongoose
-.connect(
-"mongodb+srv://akritijune09:akritimern@cluster0.176gi.mongodb.net/"
-)
+      .connect(
+       "mongodb+srv://akritijune09:akritimern@cluster0.176gi.mongodb.net"
+             )
 
 .then(() => console.log("MongoDB connected"))
 .catch((error) => console.log(error));

@@ -11,7 +11,7 @@ const types = {
     TEXTAREA: "textarea"
 }
 
-function CommonForm({ formControls, formData, setFormData, OnSubmit, ButtonText, isBtnDisabled }) {
+function CommonForm({ formControls, formData, setFormData, onSubmit, ButtonText, isBtnDisabled }) {
     function renderInputsByComponentType(getControlItem) {
         let element = null;
         const value = formData[getControlItem.name] || "";
@@ -95,7 +95,7 @@ function CommonForm({ formControls, formData, setFormData, OnSubmit, ButtonText,
     }
 
     return (
-        <form onSubmit={OnSubmit}>
+        <form onSubmit={onSubmit}>
             <div className="flex flex-col gap-3">
                 {
                     formControls.map(controlItem => (
