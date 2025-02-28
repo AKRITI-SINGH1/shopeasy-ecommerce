@@ -7,6 +7,7 @@ function CheckAuth({isAuthenticated, user, children}) {
 
     console.log(location.pathname, isAuthenticated);
 
+
     if (
         !isAuthenticated &&
         !(
@@ -35,9 +36,12 @@ function CheckAuth({isAuthenticated, user, children}) {
             return <Navigate to = "/unauth-page" />;
         }
 
-        if (isAuthenticated && user?.role === "admin" && location.pathname.includes("shop"))	 
+        if (
+            isAuthenticated && 
+            user?.role === "admin" &&
+             location.pathname.includes("shop"))	 
         {
-            return <Navigate to = "admin/dashboard" />;
+            return <Navigate to = "/admin/dashboard" />;
         }
 
 
