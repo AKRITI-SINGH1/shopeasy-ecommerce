@@ -34,9 +34,14 @@ function AdminProducts() {
 
     const [uploadedImageUrl , setUploadedImageUrl] = useState("");
 
-    function onSubmit() {
+    const [imageLoadingState , setImageLoadingState] = useState(false);
+
+    function onSubmit(event) {
+        event.preventDefault();
 
     }
+
+    console.log(formData, "formData");
 
  return (
       <Fragment>
@@ -60,6 +65,8 @@ function AdminProducts() {
                     setImageFile={setImageFile} 
                     uploadedImageUrl={uploadedImageUrl} 
                     setUploadedImageUrl={setUploadedImageUrl} 
+                    setImageLoadingState={setImageLoadingState}
+                    imageLoadingState={imageLoadingState}
                 />
                       <div className="py-6">
                             <CommonForm 
