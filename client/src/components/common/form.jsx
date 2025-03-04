@@ -10,7 +10,14 @@ const types = {
     TEXTAREA: "textarea"
 }
 
-function CommonForm({ formControls, formData, setFormData, onSubmit, ButtonText, isBtnDisabled }) {
+function CommonForm({ 
+    formControls,
+     formData, 
+     setFormData,
+     onSubmit, 
+     ButtonText, 
+     isBtnDisabled
+    }) {
     function renderInputsByComponentType(getControlItem) {
         let element = null;
         const value = formData[getControlItem.name] || "";
