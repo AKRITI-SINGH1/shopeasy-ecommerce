@@ -59,6 +59,17 @@ const loginUser = async (req, res) => {
       });
     }
 
+    if (!checkUser) {
+      // return an error response
+    }
+
+    // compare password hash
+    const isValid = await bcrypt.compare(req.body.password, checkUser.password);
+    if (!isValid) {
+      console.error("Incorrect password for email:", req.body.email);
+      return res.status(401).json({ success: false, message: "Incorrect credentials" });
+    }
+
     const checkPasswordMatch = await bcrypt.compare(password, checkUser.password);
     if (!checkPasswordMatch) {
       console.log("Incorrect password for email:", email);
