@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { filterOptions } from "@/config";
 import { Label } from "../ui/label";
 import { Checkbox } from "../ui/checkbox";
+import { Separator } from "../ui/separator";
 
 function ProductFilter() {
   return (
@@ -25,7 +26,7 @@ function ProductFilter() {
                            }               
                         </div>
                     </div>
-                    
+                    <Separator />
                 </Fragment>
                      ))}           
         </div>
