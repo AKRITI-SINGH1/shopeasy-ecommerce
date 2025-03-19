@@ -23,9 +23,6 @@ export const fetchAllFilteredProducts = createAsyncThunk(
 
 
 
-
-
-
 const shopProductSlice = createSlice({
   name : "shopProducts",
   initialState,

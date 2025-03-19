@@ -6,6 +6,7 @@ const initialState = {
     isAuthenticated: false,
     isLoading : true,
     user : null,
+    error: null 
 };
 
 export const registerUser = createAsyncThunk("/auth/register",
@@ -23,8 +24,7 @@ export const registerUser = createAsyncThunk("/auth/register",
 );
 
 
-export const loginUser = createAsyncThunk(
-    "/auth/login",
+export const loginUser = createAsyncThunk("/auth/login",
   
     async (formData) => {
       const response = await axios.post(
@@ -140,6 +140,7 @@ const authSlice = createSlice ({
             state.isLoading = false;
             state.user = null;
             state.isAuthenticated = false;
+             state.error = null; 
           });
 
     },

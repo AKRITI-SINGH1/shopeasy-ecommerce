@@ -50,6 +50,7 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    // Check if user exists
     const checkUser = await User.findOne({ email });
     if (!checkUser) {
       console.log("User does not exist with email:", email);
@@ -59,26 +60,17 @@ const loginUser = async (req, res) => {
       });
     }
 
-    if (!checkUser) {
-      // return an error response
-    }
-
-    // compare password hash
-    const isValid = await bcrypt.compare(req.body.password, checkUser.password);
+    // Verify password - remove duplicate checks
+    const isValid = await bcrypt.compare(password, checkUser.password);
     if (!isValid) {
-      console.error("Incorrect password for email:", req.body.email);
-      return res.status(401).json({ success: false, message: "Incorrect credentials" });
-    }
-
-    const checkPasswordMatch = await bcrypt.compare(password, checkUser.password);
-    if (!checkPasswordMatch) {
-      console.log("Incorrect password for email:", email);
-      return res.status(400).json({
+      console.error("Incorrect password for email:", email);
+      return res.status(401).json({
         success: false,
         message: "Incorrect Password! Please try again",
       });
     }
 
+    // Generate JWT token
     const token = jwt.sign(
       {
         id: checkUser._id,
@@ -86,27 +78,35 @@ const loginUser = async (req, res) => {
         email: checkUser.email,
         username: checkUser.username,
       },
-      process.env.CLIENT_SECRET_KEY || "CLIENT_SECRET_KEY",
+      process.env.JWT_SECRET || "CLIENT_SECRET_KEY", // Better to use JWT_SECRET
       { expiresIn: "60m" }
     );
 
     console.log("User logged in, token generated for:", checkUser.email);
 
-    return res.cookie("token", token, { httpOnly: true, secure: false }).json({
-      success: true,
-      message: "Logged in successfully",
-      user: {
-        email: checkUser.email,
-        role: checkUser.role,
-        id: checkUser._id,
-        username: checkUser.username,
-      },
-    });
+    // Set cookie and send response
+    return res
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        maxAge: 60 * 60 * 1000 // 1 hour to match token expiry
+      })
+      .json({
+        success: true,
+        message: "Logged in successfully",
+        user: {
+          email: checkUser.email,
+          role: checkUser.role,
+          id: checkUser._id,
+          username: checkUser.username,
+        },
+      });
   } catch (e) {
     console.error("Error during login:", e);
     return res.status(500).json({
       success: false,
-      message: "Some error occurred",
+      message: "Internal server error",
     });
   }
 };
