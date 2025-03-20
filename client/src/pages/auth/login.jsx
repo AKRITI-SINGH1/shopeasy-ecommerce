@@ -3,7 +3,7 @@ import { loginFormControls } from "@/config";
 import { Link } from "react-router-dom";
 import { useState } from "react"; 
 import { useDispatch } from "react-redux";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import { loginUser } from "@/store/auth-slice";
 
 

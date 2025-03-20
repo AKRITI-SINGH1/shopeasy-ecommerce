@@ -1,5 +1,5 @@
 import CommonForm from "@/components/common/form";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import { registerUser } from "@/store/auth-slice";
 import { registerFormControls } from "@/config";
 import { Link } from "react-router-dom";
