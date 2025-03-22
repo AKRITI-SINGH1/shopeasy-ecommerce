@@ -1,7 +1,8 @@
 const paypal = require("@paypal/paypal-server-sdk");
+require("dotenv").config();
 
-const clientId = "";
-const clientSecret = "";
+const clientId = process.env.PAYPAL_CLIENT_ID;
+const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
 
 function environment() {
   // Create and return a SandboxEnvironment. Use LiveEnvironment for production.
